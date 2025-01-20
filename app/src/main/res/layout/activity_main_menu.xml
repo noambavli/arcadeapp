@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/vibrant_yellow">
+
+    <!-- Profile Button -->
+    <Button
+        android:id="@+id/profileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profile"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/black"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/cool_font2" />
+
+    <!-- Scoreboard Button -->
+    <Button
+        android:id="@+id/scoreboardButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Scoreboard"
+        android:background="@drawable/rounded_button_alt"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/cool_font2" />
+
+    <!-- Games Home Button -->
+    <Button
+        android:id="@+id/gamesHomeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Games"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/pastel_blue"
+        android:padding="16dp"
+        android:fontFamily="@font/cool_font2" />
+</LinearLayout>

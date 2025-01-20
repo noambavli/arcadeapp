@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/dark_gray">
+
+    <!-- Scoreboard Title -->
+    <TextView
+        android:id="@+id/scoreboardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scoreboard"
+        android:textSize="24sp"
+        android:textColor="@color/yellow"
+        android:fontFamily="@font/cool_font2"
+        android:layout_marginBottom="20dp" />
+
+    <!-- Scoreboard List -->
+    <ListView
+        android:id="@+id/scoreboardListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/rounded_list"
+        android:divider="@color/dim_gray"
+        android:dividerHeight="1dp"
+        android:padding="8dp" />
+</LinearLayout>

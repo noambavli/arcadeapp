@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.arcadeapp">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
+    <!-- Declare all your activities here -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- Main Activity (starting point) -->
+        <activity android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Other Activities -->
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainMenuActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ScoreboardActivity" />
+        <activity android:name=".GamesHomeActivity" />
+        <activity android:name=".ExampleGameActivity" />
+        <activity android:name=".HangchairsActivity" />
+        <activity android:name=".TicTacToeActivity" />
+        <activity android:name=".guessNumberActivity" />
+        <activity android:name=".FallingblocksActivity" />
+        <activity android:name=".RedButtonActivity" />
+        <activity android:name=".triviaActivity" />
+
+
+
+    </application>
+
+</manifest>

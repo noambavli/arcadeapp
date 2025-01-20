@@ -1,0 +1,13 @@
+<!-- res/drawable/button_border.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Transparent fill -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- White border -->
+    <stroke
+        android:width="2dp"
+        android:color="@android:color/black" />
+
+    <!-- Rounded corners -->
+    <corners android:radius="8dp" />
+</shape>

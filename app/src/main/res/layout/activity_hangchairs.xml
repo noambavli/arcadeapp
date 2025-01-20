@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|center_horizontal"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- Image at the Top -->
+    <ImageView
+        android:id="@+id/hangchair_image"
+        android:layout_width="200dp"
+        android:layout_height="272dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/hangchairs6" />
+
+    <!-- Guessed Letters Text -->
+    <TextView
+        android:id="@+id/guessed_letters_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Guessed Letters: "
+        android:fontFamily="@font/cool_font2"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp" />
+
+    <!-- Word Text View -->
+    <TextView
+        android:id="@+id/word_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/cool_font2"
+        android:text="_ _ _ _ _ _ _"
+        android:textColor="@color/vibrant_yellow"
+        android:textSize="36sp" />
+
+    <!-- Attempts Text View -->
+    <TextView
+        android:id="@+id/attempts_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Attempts Left: 6"
+        android:textSize="18sp"
+        android:textColor="@color/dark_gray"
+        android:fontFamily="@font/cool_font2"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Guess Input -->
+    <EditText
+        android:id="@+id/guess_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/cool_font2"
+        android:hint="Enter Guess"
+        android:padding="12dp"
+        android:textSize="18sp" />
+
+    <!-- Status Text View -->
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_border_black"
+        android:fontFamily="@font/cool_font2"
+        android:text="Submit Guess"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="100dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_border_black"
+        android:fontFamily="@font/cool_font2"
+        android:text="Exit" />
+
+    <TextView
+        android:id="@+id/status_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="36sp"
+        android:fontFamily="@font/cool_font2"
+        android:textColor="@color/dark_gray"
+        android:layout_marginTop="32dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Submit Button -->
+
+    <!-- Exit Button with Spacing -->
+
+</LinearLayout>

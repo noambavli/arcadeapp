@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:gravity="center"
+    android:background="@color/vibrant_yellow">
+
+    <!-- Username Input -->
+    <EditText
+        android:id="@+id/usernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:inputType="text"
+        android:fontFamily="@font/cool_font2"
+
+    android:background="@drawable/rounded_input"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp" />
+
+    <!-- Password Input -->
+    <EditText
+        android:id="@+id/passwordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+        android:fontFamily="@font/cool_font2"
+
+    android:background="@drawable/rounded_input"
+    android:padding="16dp"
+    android:layout_marginBottom="20dp" />
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/cool_font2" />
+
+    <!-- Register Button -->
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:background="@drawable/rounded_button_alt"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:fontFamily="@font/cool_font2" />
+</LinearLayout>

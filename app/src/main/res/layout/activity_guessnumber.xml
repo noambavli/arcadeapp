@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2B2D42">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Guess the Number"
+        android:textColor="#8D99AE"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/cool_font2"
+        android:layout_marginTop="50dp" />
+
+    <!-- Score Label -->
+    <TextView
+        android:id="@+id/score_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"
+        android:text="guess from 1 - 5 , Score: 1"
+        android:textColor="#8D99AE"
+        android:textSize="20sp"
+        android:fontFamily="@font/cool_font2"
+        android:layout_marginTop="20dp" />
+
+    <!-- Input Field -->
+    <EditText
+        android:id="@+id/guess_input"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/score_label"
+        android:layout_centerHorizontal="true"
+        android:textColor="#EDF2F4"
+        android:textColorHint="@color/white"
+        android:hint="   Enter your guess"
+        android:inputType="number"
+        android:padding="10dp"
+        android:fontFamily="@font/cool_font2"
+        android:background="@drawable/button_border"
+        android:backgroundTint="@color/white"
+
+        android:textSize="18sp"
+        android:layout_marginTop="30dp" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submit_guess_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/guess_input"
+        android:layout_centerHorizontal="true"
+        android:text="Submit"
+        android:background="@drawable/button_border"
+        android:fontFamily="@font/cool_font2"
+        android:textColor="#EDF2F4"
+        android:layout_marginTop="20dp" />
+
+    <!-- Exit Button -->
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="60dp"
+        android:background="@drawable/button_border_black"
+        android:fontFamily="@font/cool_font2"
+        android:text="Exit Game"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+</RelativeLayout>
