@@ -33,6 +33,20 @@
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/cool_font2" />
 
+    <EditText
+        android:id="@+id/confirmPasswordInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="confirm password"
+        android:inputType="textPassword"
+        android:textColor="@color/white"
+
+        android:background="@drawable/rounded_input"
+        android:padding="16dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/cool_font2" />
+
+
     <!-- Register Button -->
     <Button
         android:id="@+id/registerButton"

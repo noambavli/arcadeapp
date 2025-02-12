@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -14,7 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class GamesHomeActivity extends AppCompatActivity {
+
 
     private GridLayout gamesGridLayout;
     private ActivityResultLauncher<Intent> startForResult;
@@ -30,7 +40,9 @@ public class GamesHomeActivity extends AppCompatActivity {
         startForResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                 int score = result.getData().getIntExtra("score", 0);
-                addScore(score);  // Handle the score after returning from the game
+                int current_score = ServerUtils.getUserScore(GamesHomeActivity.this);
+                int calculated_score = current_score+score;
+                updateScore(calculated_score);  // Handle the score after returning from the game
             }
         });
         Typeface coolFont = ResourcesCompat.getFont(this, R.font.cool_font2);
@@ -105,21 +117,45 @@ public class GamesHomeActivity extends AppCompatActivity {
         gamesGridLayout.addView(tictactoeButton);
     }
 
-    private void addScore(int score) {
-        // Retrieve the current score from SharedPreferences
+    private void updateScore(int newScore) {
+        // Assuming you already have the token saved in SharedPreferences
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-        String username = prefs.getString("username", "Guest");
+        String token = prefs.getString("jwt_token", "");
 
-        // Retrieve the current score
-        SharedPreferences appDataPrefs = getSharedPreferences("AppData", MODE_PRIVATE);
-        int currentScore = appDataPrefs.getInt(username + "_score", 0);  // Default to 0 if no score exists
+        if (!token.isEmpty()) {
+            new Thread(() -> {
+                try {
+                    URL url = new URL(ServerConfig.BASE_URL + "/update_score");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setRequestProperty("Authorization", "Bearer " + token);
+                    conn.setDoOutput(true);
 
-        // Add the new score to the current score
-        int updatedScore = currentScore + score;
+                    JSONObject json = new JSONObject();
+                    json.put("score", newScore);
 
-        // Save the updated score for this user
-        SharedPreferences.Editor editor = appDataPrefs.edit();
-        editor.putInt(username + "_score", updatedScore);
-        editor.apply();
+                    OutputStream os = conn.getOutputStream();
+                    os.write(json.toString().getBytes());
+                    os.flush();
+                    os.close();
+
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == 200) {
+                        // Update score in SharedPreferences
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putInt("score", newScore);  // Update the score
+                        editor.apply();
+                        runOnUiThread(() -> Toast.makeText(GamesHomeActivity.this, "Score updated", Toast.LENGTH_SHORT).show());
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(GamesHomeActivity.this, "Failed to update score", Toast.LENGTH_SHORT).show());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(GamesHomeActivity.this, "Error updating score", Toast.LENGTH_SHORT).show());
+                }
+            }).start();
+        }
     }
+
 }

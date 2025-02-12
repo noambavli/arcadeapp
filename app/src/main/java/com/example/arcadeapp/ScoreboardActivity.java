@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
@@ -26,30 +32,65 @@ public class ScoreboardActivity extends AppCompatActivity {
         scoreboardListView = findViewById(R.id.scoreboardListView);
         leaderboard = new ArrayList<>();
 
-        // Retrieve and sort the user scores
-        loadAndSortScores();
-
-        // Set the adapter to display the scores
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, leaderboard);
-        scoreboardListView.setAdapter(adapter);
+        // Load and fetch the scores from the server
+        loadScoresFromServer();
     }
 
-    private void loadAndSortScores() {
-        SharedPreferences prefs = getSharedPreferences("AppData", MODE_PRIVATE);
-        Map<String, ?> allEntries = prefs.getAll();
-        ArrayList<Map.Entry<String, ?>> entries = new ArrayList<>(allEntries.entrySet());
+    private void loadScoresFromServer() {
+        // Retrieve the token from SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String token = prefs.getString("jwt_token", null);
 
-        // Sort the scores in descending order
-        Collections.sort(entries, (o1, o2) -> Integer.compare((int) o2.getValue(), (int) o1.getValue()));
-
-        // Add the sorted leaderboard to the array list
-        leaderboard.clear();
-        for (Map.Entry<String, ?> entry : entries) {
-            if (entry.getKey().endsWith("_score")) {  // Only include score entries
-                String username = entry.getKey().replace("_score", "");
-                int score = (int) entry.getValue();
-                leaderboard.add(username + ": " + score);
-            }
+        if (token == null) {
+            Toast.makeText(this, "No valid token found. Please log in.", Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        new Thread(() -> {
+            try {
+                // Construct the URL for fetching the scoreboard
+                URL url = new URL(ServerConfig.BASE_URL + "/scoreboard");  // Make sure to define this endpoint in your backend
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Authorization", "Bearer " + token);
+
+                int responseCode = conn.getResponseCode();
+                if (responseCode == 200) {
+                    // Read the response from the server
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    reader.close();
+
+                    // Parse the response into a JSONArray
+                    JSONArray jsonResponse = new JSONArray(response.toString());
+
+                    // Clear the current leaderboard
+                    leaderboard.clear();
+
+                    // Loop through the JSON array and add usernames and scores to the leaderboard
+                    for (int i = 0; i < jsonResponse.length(); i++) {
+                        JSONObject user = jsonResponse.getJSONObject(i);
+                        String username = user.getString("username");
+                        int score = user.getInt("score");
+                        leaderboard.add(username + ": " + score);
+                    }
+
+                    // Update the ListView with the new leaderboard
+                    runOnUiThread(() -> {
+                        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, leaderboard);
+                        scoreboardListView.setAdapter(adapter);
+                    });
+                } else {
+                    runOnUiThread(() -> Toast.makeText(this, "Failed to load scoreboard", Toast.LENGTH_SHORT).show());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(this, "Error loading scoreboard", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
     }
 }

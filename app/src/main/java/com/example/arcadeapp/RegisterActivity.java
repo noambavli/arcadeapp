@@ -1,30 +1,22 @@
 package com.example.arcadeapp;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Base64;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.json.JSONObject;
+
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
-
-import javax.crypto.Cipher;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText usernameInput, passwordInput;
+    private EditText usernameInput, passwordInput, confirmPasswordInput;
     private Button registerButton;
 
     @Override
@@ -34,53 +26,54 @@ public class RegisterActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
+        confirmPasswordInput = findViewById(R.id.confirmPasswordInput);
         registerButton = findViewById(R.id.registerButton);
 
         registerButton.setOnClickListener(v -> {
-            String username = usernameInput.getText().toString();
-            String password = passwordInput.getText().toString();
-            String credentials = username + ":" + password;
+            String username = usernameInput.getText().toString().trim();
+            String password = passwordInput.getText().toString().trim();
+            String confirmPassword = confirmPasswordInput.getText().toString().trim();
 
-            // Fetch public key and encrypt credentials
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(RegisterActivity.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                Toast.makeText(RegisterActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             new Thread(() -> {
                 try {
-                    URL url = new URL("http://<server-ip>:5000/get_public_key");
+                    // Use the base URL from ServerConfig
+                    URL url = new URL(ServerConfig.BASE_URL + "/register");
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    InputStream is = conn.getInputStream();
-                    String publicKeyString = new BufferedReader(new InputStreamReader(is)).readLine();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setDoOutput(true);
 
-                    // Encrypt credentials with public key
-                    PublicKey publicKey = KeyFactory.getInstance("RSA")
-                            .generatePublic(new X509EncodedKeySpec(Base64.decode(publicKeyString, Base64.DEFAULT)));
-                    Cipher cipher = Cipher.getInstance("RSA");
-                    cipher.init(Cipher.ENCRYPT_MODE, publicKey);
-                    byte[] encryptedData = cipher.doFinal(credentials.getBytes());
+                    JSONObject json = new JSONObject();
+                    json.put("username", username);
+                    json.put("password", password);
 
-                    // Send encrypted data to the server
-                    URL registerUrl = new URL("http://<server-ip>:5000/register");
-                    HttpURLConnection registerConn = (HttpURLConnection) registerUrl.openConnection();
-                    registerConn.setRequestMethod("POST");
-                    registerConn.setRequestProperty("Content-Type", "application/json");
-                    registerConn.setDoOutput(true);
-
-                    String json = "{\"data\":\"" + Base64.encodeToString(encryptedData, Base64.DEFAULT) + "\"}";
-                    OutputStream os = registerConn.getOutputStream();
-                    os.write(json.getBytes());
+                    OutputStream os = conn.getOutputStream();
+                    os.write(json.toString().getBytes());
                     os.flush();
+                    os.close();
 
-                    // Handle server response
-                    InputStream responseStream = registerConn.getInputStream();
-                    String response = new BufferedReader(new InputStreamReader(responseStream)).readLine();
-                    runOnUiThread(() -> {
-                        if (response.contains("success")) {
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == 201) {
+                        runOnUiThread(() -> {
+                            Toast.makeText(RegisterActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                        } else {
-                            Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                        });
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Registration failed", Toast.LENGTH_SHORT).show());
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(RegisterActivity.this, "Error registering user", Toast.LENGTH_SHORT).show());
                 }
             }).start();
         });

@@ -9,6 +9,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameInput, passwordInput;
@@ -28,19 +36,72 @@ public class LoginActivity extends AppCompatActivity {
             String username = usernameInput.getText().toString();
             String password = passwordInput.getText().toString();
 
-            // Retrieve saved credentials from SharedPreferences
-            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-            String savedUsername = prefs.getString("username", null);
-            String savedPassword = prefs.getString("password", null);
+            new Thread(() -> {
+                try {
+                    // Use the base URL from ServerConfig
+                    URL url = new URL(ServerConfig.BASE_URL + "/login");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/json");
+                    conn.setDoOutput(true);
 
-            if (username.equals(savedUsername) && password.equals(savedPassword)) {
-                // Successful login
-                Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
-                startActivity(intent);
-            } else {
-                // Display error
-                Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
-            }
+                    JSONObject json = new JSONObject();
+                    json.put("username", username);
+                    json.put("password", password);
+
+                    OutputStream os = conn.getOutputStream();
+                    os.write(json.toString().getBytes());
+                    os.flush();
+                    os.close();
+
+                    int responseCode = conn.getResponseCode();
+                    if (responseCode == 200) {
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                        StringBuilder response = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            response.append(line);
+                        }
+                        reader.close();
+
+                        JSONObject jsonResponse = new JSONObject(response.toString());
+                        String token = jsonResponse.getString("token");
+
+                        // Fetch user's score from the server
+                        String profileUrl = ServerConfig.BASE_URL + "/profile";
+                        HttpURLConnection profileConn = (HttpURLConnection) new URL(profileUrl).openConnection();
+                        profileConn.setRequestMethod("GET");
+                        profileConn.setRequestProperty("Authorization", "Bearer " + token);
+                        BufferedReader profileReader = new BufferedReader(new InputStreamReader(profileConn.getInputStream()));
+                        StringBuilder profileResponse = new StringBuilder();
+                        while ((line = profileReader.readLine()) != null) {
+                            profileResponse.append(line);
+                        }
+                        profileReader.close();
+
+                        JSONObject profileJson = new JSONObject(profileResponse.toString());
+                        int score = profileJson.getInt("score");
+
+                        // Save JWT, username, and score in SharedPreferences
+                        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("jwt_token", token);
+                        editor.putString("username", username);
+                        editor.putInt("score", score);  // Save the score
+                        editor.apply();
+
+                        runOnUiThread(() -> {
+                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
+                        });
+                    } else {
+                        runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Error logging in", Toast.LENGTH_SHORT).show());
+                }
+            }).start();
         });
 
         registerButton.setOnClickListener(v -> {
