@@ -39,7 +39,7 @@ public class ServerUtils {
                 reader.close();
 
                 JSONObject jsonResponse = new JSONObject(response.toString());
-                if (jsonResponse.has("score")) {
+                if (jsonResponse.getString("status").equals("success") && jsonResponse.has("score")) {
                     score = jsonResponse.getInt("score");
                 }
             }

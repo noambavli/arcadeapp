@@ -65,35 +65,28 @@ public class LoginActivity extends AppCompatActivity {
                         reader.close();
 
                         JSONObject jsonResponse = new JSONObject(response.toString());
-                        String token = jsonResponse.getString("token");
+                        if (jsonResponse.getString("status").equals("success")) {
+                            String token = jsonResponse.getString("token");
+                            String username_response = jsonResponse.getString("username");
+                            int score = jsonResponse.getInt("score");
 
-                        // Fetch user's score from the server
-                        String profileUrl = ServerConfig.BASE_URL + "/profile";
-                        HttpURLConnection profileConn = (HttpURLConnection) new URL(profileUrl).openConnection();
-                        profileConn.setRequestMethod("GET");
-                        profileConn.setRequestProperty("Authorization", "Bearer " + token);
-                        BufferedReader profileReader = new BufferedReader(new InputStreamReader(profileConn.getInputStream()));
-                        StringBuilder profileResponse = new StringBuilder();
-                        while ((line = profileReader.readLine()) != null) {
-                            profileResponse.append(line);
+                            // Save JWT, username, and score in SharedPreferences
+                            SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("jwt_token", token);
+                            editor.putString("username", username_response);
+                            editor.putInt("score", score);
+                            editor.apply();
+
+                            runOnUiThread(() -> {
+                                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
+                                finish(); // Close login activity
+                            });
+                        } else {
+                            runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Login failed: " + 
+                                jsonResponse.optString("message", "Unknown error"), Toast.LENGTH_SHORT).show());
                         }
-                        profileReader.close();
-
-                        JSONObject profileJson = new JSONObject(profileResponse.toString());
-                        int score = profileJson.getInt("score");
-
-                        // Save JWT, username, and score in SharedPreferences
-                        SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("jwt_token", token);
-                        editor.putString("username", username);
-                        editor.putInt("score", score);  // Save the score
-                        editor.apply();
-
-                        runOnUiThread(() -> {
-                            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, MainMenuActivity.class));
-                        });
                     } else {
                         runOnUiThread(() -> Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show());
                     }
