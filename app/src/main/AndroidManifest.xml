@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.arcadeapp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -36,8 +35,20 @@
         <activity android:name=".FallingblocksActivity" />
         <activity android:name=".RedButtonActivity" />
         <activity android:name=".triviaActivity" />
-
-
+        <activity android:name=".MemoryMatchActivity" />
+        <activity android:name=".ColorMatchActivity" />
+        <activity 
+            android:name=".SnakeActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity 
+            android:name=".BubblePopActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity android:name=".SpaceShooterActivity" />
+        <activity android:name=".FlappyBirdActivity" />
+        <activity android:name=".PuzzleSlideActivity" />
+        <activity android:name=".StoreActivity" />
 
     </application>
 

@@ -4,28 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:gravity="center"
-    android:background="@color/dark_gray">
+    android:background="@color/material_dynamic_primary30">
 
-    <!-- Scoreboard Title -->
-    <TextView
-        android:id="@+id/scoreboardTitle"
+    <Button
+        android:id="@+id/backButton"
+        style="@style/BackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scoreboard"
-        android:textSize="24sp"
-        android:textColor="@color/yellow"
-        android:fontFamily="@font/cool_font2"
-        android:layout_marginBottom="20dp" />
+        android:layout_gravity="start"
+        android:text="← Back"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Scoreboard List -->
-    <ListView
-        android:id="@+id/scoreboardListView"
+    <TextView
+        android:id="@+id/scoreboardTitle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@drawable/rounded_list"
-        android:divider="@color/dim_gray"
-        android:dividerHeight="1dp"
+        android:layout_height="wrap_content"
+        android:text="Scoreboard"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/cool_font2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/scoreboardRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:padding="8dp" />
+
 </LinearLayout>

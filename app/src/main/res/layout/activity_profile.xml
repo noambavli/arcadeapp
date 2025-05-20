@@ -1,42 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
-    android:background="@color/ocean_blue">
+    android:background="@color/vibrant_yellow">
 
-    <!-- Profile Title -->
-    <TextView
-        android:id="@+id/profileText"
+    <Button
+        android:id="@+id/backButton"
+        style="@style/BackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profile"
-        android:textSize="24sp"
-        android:textColor="@color/vibrant_yellow"
-        android:fontFamily="@font/cool_font2"
-        android:layout_marginBottom="20dp" />
+        android:layout_gravity="start"
+        android:text="← Back"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Username Text -->
+    <!-- Username Display -->
     <TextView
         android:id="@+id/usernameText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username: "
-        android:textSize="18sp"
+        android:textSize="28sp"
         android:textColor="@color/white"
-        android:fontFamily="@font/cool_font2"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/cool_font2" />
 
-        android:layout_marginBottom="10dp" />
-
-    <!-- Score Text -->
+    <!-- Score Display -->
     <TextView
         android:id="@+id/scoreText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Score: "
-        android:textSize="18sp"
-
+        android:textSize="24sp"
         android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginBottom="32dp"
         android:fontFamily="@font/cool_font2" />
+
+    <!-- Scoreboard Button -->
+    <Button
+        android:id="@+id/scoreboardButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Scoreboard"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/white"
+        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/cool_font2" />
+
 </LinearLayout>

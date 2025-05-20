@@ -130,7 +130,7 @@ public class guessNumberActivity extends AppCompatActivity {
                 Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
                 // Set custom styles for positive and negative buttons
-                positiveButton.setTextColor(getResources().getColor(R.color.blue)); // Custom color for "Double it!"
+                positiveButton.setTextColor(getResources().getColor(R.color.ocean_blue)); // Custom color for "Double it!"
                 negativeButton.setTextColor(Color.RED); // Red color for "Quit"
             }
         });

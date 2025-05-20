@@ -1,17 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="tictactoe_button">
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_variant</item>
+        <item name="colorAccent">@color/secondary</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+    </style>
+
+    <!-- Game Button Style -->
+    <style name="GameButton" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+        <item name="android:elevation">4dp</item>
+        <item name="cornerRadius">12dp</item>
+    </style>
+
+    <!-- TicTacToe Button Style -->
+    <style name="TicTacToeButton" parent="Widget.Material3.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_rowWeight">1</item>
         <item name="android:layout_columnWeight">1</item>
-        <item name="android:textSize">32sp</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-        <item name="android:textColor">#000000</item>
-    </style>
-    <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">#EF233C</item>
-        <item name="android:textColorPrimary">#EDF2F4</item>
-        <item name="android:background">#2B2D42</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:background">@drawable/rounded_button_background</item>
+        <item name="android:textColor">@color/vibrant_blue</item>
+        <item name="android:textSize">48sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">100dp</item>
+        <item name="android:minWidth">100dp</item>
     </style>
 
+    <!-- Alias for TicTacToeButton style -->
+    <style name="tictactoe_button" parent="TicTacToeButton" />
+
+    <!-- Score Text Style -->
+    <style name="ScoreText" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/rounded_text_background</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+        <item name="android:elevation">2dp</item>
+    </style>
+
+    <!-- Exit Button Style -->
+    <style name="ExitButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+        <item name="android:elevation">4dp</item>
+        <item name="strokeColor">@color/primary</item>
+    </style>
+
+    <!-- Dialog Style -->
+    <style name="GameDialog" parent="Theme.Material3.Light.Dialog">
+        <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+    </style>
+
+    <!-- Alert Dialog Theme -->
+    <style name="AlertDialogTheme" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="colorAccent">@color/error</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:background">@color/surface</item>
+        <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+    </style>
+
+    <!-- Back Button Style -->
+    <style name="BackButton" parent="Widget.Material3.Button.IconButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:fontFamily">@font/cool_font2</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="iconTint">@color/primary</item>
+    </style>
 </resources>

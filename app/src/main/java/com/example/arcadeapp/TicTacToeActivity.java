@@ -93,9 +93,6 @@ public class TicTacToeActivity extends AppCompatActivity {
         resultIntent.putExtra("score", new_score);
         setResult(RESULT_OK, resultIntent);
         final_dialog();
-
-        // Finish the current activity
-
     }
 
     private void computerMove() {
@@ -203,19 +200,6 @@ public class TicTacToeActivity extends AppCompatActivity {
                         finish();
                     }
                 });
-    }
-    private void saveScore(int score) {
-        // Retrieve the current score from SharedPreferences
-        SharedPreferences prefs = getSharedPreferences("AppData", MODE_PRIVATE);
-        int currentScore = prefs.getInt("score", 0);  // Default to 0 if no score exists
-
-        // Add the new score to the existing score
-        int newScore = currentScore + score;
-
-        // Save the updated score back to SharedPreferences
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putInt("score", newScore);
-        editor.apply();
     }
 
     public void exitGame(View view) {

@@ -54,7 +54,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="#1e1e1e">
+        android:background="@color/sky_blue">
 
         <Button
             android:id="@+id/button0"

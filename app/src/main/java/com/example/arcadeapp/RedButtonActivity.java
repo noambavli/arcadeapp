@@ -25,6 +25,7 @@ public class RedButtonActivity extends AppCompatActivity {
         scoreText = findViewById(R.id.scoreText);
         redButton = findViewById(R.id.redButton);
         exitButton = findViewById(R.id.exitButton);
+        Button backButton = findViewById(R.id.backButton);
 
         // Button click listener to increase score
         redButton.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +45,14 @@ public class RedButtonActivity extends AppCompatActivity {
                 setResult(RESULT_OK, resultIntent);
                 finish(); // Closes the current activity
             }
+        });
+
+        // Back button click listener
+        backButton.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("score", score);
+            setResult(RESULT_OK, resultIntent);
+            finish();
         });
     }
 }

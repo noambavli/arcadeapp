@@ -7,6 +7,15 @@
     android:padding="16dp"
     android:background="@android:color/holo_blue_dark"> <!-- Pastel Background -->
 
+    <Button
+        android:id="@+id/backButton"
+        style="@style/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="← Back"
+        android:layout_marginBottom="16dp" />
+
     <!-- Score display -->
     <TextView
         android:id="@+id/scoreText"

@@ -1,71 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Basic Colors -->
+    <!-- Material Design 3 Color System -->
+    <color name="primary">#FF6750A4</color>
+    <color name="primary_variant">#FF4F378B</color>
+    <color name="secondary">#FF625B71</color>
+    <color name="secondary_variant">#FF7D5260</color>
+    <color name="tertiary">#FF7D5260</color>
+    
+    <!-- Surface Colors -->
+    <color name="surface">#FFFFFBFE</color>
+    <color name="surface_variant">#FFE7E0EC</color>
+    <color name="background">#FFFFFBFE</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#FF1C1B1F</color>
+    <color name="text_secondary">#FF49454F</color>
+    <color name="text_tertiary">#FF79747E</color>
+    
+    <!-- State Colors -->
+    <color name="error">#FFB3261E</color>
+    <color name="success">#FF4CAF50</color>
+    <color name="warning">#FFFFC107</color>
+    <color name="info">#FF2196F3</color>
+    
+    <!-- Interactive Colors -->
+    <color name="ripple">#1F000000</color>
+    <color name="hover">#0A000000</color>
+    <color name="focus">#1F000000</color>
+    
+    <!-- Legacy Colors (for backward compatibility) -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="red">#FFFF0000</color>
-    <color name="green">#FF00FF00</color>
-    <color name="blue">#FF0000FF</color>
-    <color name="yellow">#FFFFFF00</color>
-    <color name="cyan">#FF00FFFF</color>
-    <color name="magenta">#FFFF00FF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
 
-    <!-- Neutral Palette -->
-    <color name="light_gray">#FFD3D3D3</color>
-    <color name="gray">#FF808080</color>
-    <color name="dark_gray">#FF505050</color>
-    <color name="slate_gray">#FF708090</color>
-    <color name="dim_gray">#FF696969</color>
+    <!-- Game-specific Colors -->
+    <color name="vibrant_red">@color/error</color>
+    <color name="vibrant_blue">@color/info</color>
+    <color name="vibrant_green">@color/success</color>
+    <color name="vibrant_yellow">@color/warning</color>
+    <color name="dialog_background">#FFF5F5F5</color>
+    <color name="button_background">#FFE0E0E0</color>
+    <color name="score_background">#FFEEEEEE</color>
+    <color name="button_text">#FF212121</color>
+    <color name="score_text">#FF424242</color>
 
-    <!-- Warm Palette -->
-    <color name="light_red">#FFFFC0C0</color>
-    <color name="warm_orange">#FFFFA500</color>
-    <color name="burnt_orange">#FFFF4500</color>
-    <color name="peach">#FFFFE5B4</color>
-    <color name="rose">#FFFFC0CB</color>
-    <color name="salmon">#FFFA8072</color>
-    <color name="brick_red">#FFB22222</color>
-
-    <!-- Cool Palette -->
-    <color name="sky_blue">#FF87CEEB</color>
-    <color name="ocean_blue">#FF4682B4</color>
-    <color name="turquoise">#FF40E0D0</color>
-    <color name="mint">#FF98FF98</color>
-    <color name="sea_green">#FF2E8B57</color>
-    <color name="teal">#FF008080</color>
-    <color name="navy">#FF000080</color>
-
-    <!-- Earthy Palette -->
-    <color name="forest_green">#FF228B22</color>
-    <color name="olive">#FF808000</color>
-    <color name="tan">#FFD2B48C</color>
-    <color name="chocolate">#FFD2691E</color>
-    <color name="saddle_brown">#FF8B4513</color>
-    <color name="khaki">#FFF0E68C</color>
-    <color name="gold">#FFFFD700</color>
-
-    <!-- Pastel Palette -->
-    <color name="pastel_pink">#FFFFD1DC</color>
-    <color name="pastel_yellow">#FFFFFFB3</color>
-    <color name="pastel_blue">#FFB3E5FC</color>
-    <color name="pastel_purple">#FFE1BEE7</color>
-    <color name="pastel_green">#FFDCEDC8</color>
-    <color name="pastel_orange">#FFFFE0B2</color>
-
-    <!-- Vibrant Palette -->
-    <color name="vibrant_red">#FFB71C1C</color>
-    <color name="vibrant_blue">#FF2962FF</color>
-    <color name="vibrant_green">#FF00C853</color>
-    <color name="vibrant_yellow">#FFFFEA00</color>
-    <color name="vibrant_purple">#FFAA00FF</color>
-    <color name="vibrant_orange">#FFFF6D00</color>
-    <color name="vibrant_pink">#FFFF4081</color>
-
-    <!-- Gradient Inspiration -->
-    <color name="sunset_start">#FFFF7E5F</color>
-    <color name="sunset_end">#FFFD3A69</color>
-    <color name="aqua_start">#FF13547A</color>
-    <color name="aqua_end">#FF80D0C7</color>
-    <color name="peach_start">#FFFAD961</color>
-    <color name="peach_end">#FFF76B1C</color>
+    <!-- Additional Game Colors -->
+    <color name="ocean_blue">#FF1976D2</color>
+    <color name="sky_blue">#FF64B5F6</color>
+    <color name="pastel_blue">#FF90CAF9</color>
+    <color name="dim_gray">#FF757575</color>
+    <color name="dark_gray">#FF424242</color>
+    <color name="yellow">#FFFFEB3B</color>
+    <color name="vibrant_purple">@color/primary</color>
+    <color name="vibrant_pink">#FFE91E63</color>
+    <color name="vibrant_orange">#FFFF9800</color>
 </resources>

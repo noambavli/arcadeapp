@@ -2,12 +2,12 @@ package com.example.arcadeapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,20 +17,27 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ScoreboardActivity extends AppCompatActivity {
 
-    private ListView scoreboardListView;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> leaderboard;
+    private RecyclerView scoreboardRecyclerView;
+    private ScoreboardAdapter adapter;
+    private List<ScoreboardItem> leaderboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        scoreboardListView = findViewById(R.id.scoreboardListView);
+        Button backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(v -> finish());
+
+        scoreboardRecyclerView = findViewById(R.id.scoreboardRecyclerView);
+        scoreboardRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         leaderboard = new ArrayList<>();
+        adapter = new ScoreboardAdapter(leaderboard);
+        scoreboardRecyclerView.setAdapter(adapter);
 
         // Load and fetch the scores from the server
         loadScoresFromServer();
@@ -79,14 +86,11 @@ public class ScoreboardActivity extends AppCompatActivity {
                             JSONObject user = scoreboardArray.getJSONObject(i);
                             String username = user.getString("username");
                             int score = user.getInt("score");
-                            leaderboard.add(username + ": " + score);
+                            leaderboard.add(new ScoreboardItem(username, score));
                         }
 
-                        // Update the ListView with the new leaderboard
-                        runOnUiThread(() -> {
-                            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, leaderboard);
-                            scoreboardListView.setAdapter(adapter);
-                        });
+                        // Update the RecyclerView with the new leaderboard
+                        runOnUiThread(() -> adapter.notifyDataSetChanged());
                     } else {
                         runOnUiThread(() -> Toast.makeText(this, 
                             "Failed to load scoreboard: " + jsonResponse.optString("message", "Unknown error"), 

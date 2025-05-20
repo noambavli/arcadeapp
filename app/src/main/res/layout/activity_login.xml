@@ -31,7 +31,17 @@
 
     android:background="@drawable/rounded_input"
     android:padding="16dp"
-    android:layout_marginBottom="20dp" />
+    android:layout_marginBottom="12dp" />
+
+    <!-- Remember Me Checkbox -->
+    <CheckBox
+        android:id="@+id/rememberMeCheckbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Remember Me"
+        android:textColor="@color/white"
+        android:fontFamily="@font/cool_font2"
+        android:layout_marginBottom="12dp" />
 
     <!-- Login Button -->
     <Button

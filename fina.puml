@@ -1,0 +1,584 @@
+@startuml
+class com.example.arcadeapp.TicTacToeActivity {
+- int[] board
+- int score
+- boolean gameOver
+- Button exitButton
+- TextView statusTextView
+- Button[] buttons
+# void onCreate(Bundle)
+- void handleClick(int)
+- void winGame()
+- void computerMove()
+- int findWinningMove(int)
+- boolean checkWin(int)
+- boolean checkWinner()
+- boolean isBoardFull()
+- void updateUI()
+- void final_dialog()
++ void exitGame(View)
+}
+
+
+class com.example.arcadeapp.ProfileActivity {
+- TextView usernameText
+- Button scoreboardButton
+- TokenManager tokenManager
+# void onCreate(Bundle)
+# void onResume()
+- void fetchScore()
+}
+
+
+class com.example.arcadeapp.SnakeActivity {
+- FrameLayout gameBoard
+- TextView scoreText
+- int score
+- boolean isGameRunning
+- Handler handler
+- Random random
+- Button exitButton
+- Button upButton
+- View currentFood
+- ArrayList<View> snakeParts
+- int snakeDirection
+- int snakeSpeed
+- int gridSize
+# void onCreate(Bundle)
+- void changeDirection(int)
+- void initializeGame()
+- void startGameLoop()
+- void moveSnake()
+- void spawnFood()
+- void growSnake()
+- void gameOver()
+# void onPause()
+# void onResume()
+}
+
+
+class com.example.arcadeapp.SpaceShooterActivity {
+- FrameLayout gameBoard
+- TextView scoreText
+- TextView livesText
+- int score
+- int lives
+- boolean isGameRunning
+- Handler handler
+- Random random
+- Button exitButton
+- Button leftButton
+- View playerShip
+- ArrayList<View> bullets
+- ArrayList<View> enemies
+- ArrayList<View> asteroids
+- int playerX
+- int playerSpeed
+- int bulletSpeed
+- int enemySpeed
+- int asteroidSpeed
+- int spawnInterval
+- int difficultyLevel
+# void onCreate(Bundle)
+- void initializeGame()
+- void createPlayerShip()
+- void setupControls()
+- void movePlayer(int)
+- void fireBullet()
+- void startGameLoop()
+- void updateGame()
+- void updateBullets()
+- void updateEnemies()
+- void updateAsteroids()
+- void checkCollisions()
+- boolean isColliding(FrameLayout.LayoutParams,FrameLayout.LayoutParams)
+- void loseLife()
+- void startEnemySpawner()
+- void startAsteroidSpawner()
+- void spawnEnemy()
+- void spawnAsteroid()
+- void startDifficultyTimer()
+- void gameOver()
+# void onPause()
+# void onResume()
+}
+
+
+class com.example.arcadeapp.ScoreboardActivity {
+- RecyclerView scoreboardRecyclerView
+- ScoreboardAdapter adapter
+- List<ScoreboardItem> leaderboard
+# void onCreate(Bundle)
+- void loadScoresFromServer()
+}
+
+
+class com.example.arcadeapp.LoginActivity {
+- {static} String TAG
+- EditText usernameInput
+- Button loginButton
+- CheckBox rememberMeCheckbox
+- TokenManager tokenManager
+- Handler tokenRefreshHandler
+- {static} long TOKEN_REFRESH_INTERVAL
+# void onCreate(Bundle)
+- void startTokenRefresh()
+- void refreshToken()
+# void onDestroy()
+}
+
+
+class com.example.arcadeapp.ColorMatchActivity {
+- GridLayout colorGrid
+- TextView scoreText
+- TextView levelText
+- Button startButton
+- Button exitButton
+- ArrayList<Integer> colorSequence
+- ArrayList<Integer> playerSequence
+- int currentLevel
+- int score
+- boolean isPlaying
+- boolean isShowingSequence
+- Handler handler
+- Random random
+- int[] colorResIds
+# void onCreate(Bundle)
+- void setupColorGrid()
+- void startGame()
+- void showNextSequence()
+- void animateButton(Button)
+- void handleColorClick(int)
+- void showExitDialog()
+- void saveScore()
+- void gameOver()
+- void updateUI()
+}
+
+
+class com.example.arcadeapp.TokenManager {
+- {static} String TAG
+- {static} String PREF_NAME
+- {static} String KEY_TOKEN
+- {static} String KEY_USERNAME
+- {static} String KEY_SCORE
+- {static} String KEY_REMEMBER_ME
+- {static} String KEY_SAVED_PASSWORD
+- SharedPreferences prefs
++ boolean isLoggedIn()
++ String getToken()
++ String getUsername()
++ int getScore()
++ boolean isRememberMeEnabled()
++ String getSavedPassword()
++ SharedPreferences getPrefs()
++ void clearSession()
+}
+
+
+class com.example.arcadeapp.guessNumberActivity {
+- int score
+- int bestScore
+- int secretNumber
+- EditText guessInput
+- TextView scoreLabel
+- Button submitButton
+# void onCreate(Bundle)
+- void startNewGame()
+- void checkGuess()
+- void showWinDialog()
+- void final_dialog()
+- void resetGame()
+- void showExitDialog()
+}
+
+
+interface com.example.arcadeapp.ApiService {
+~ Call<JsonObject> register(JsonObject)
+~ Call<JsonObject> login(JsonObject)
+~ Call<JsonObject> getScore(String)
+~ Call<JsonObject> updateScore(String,JsonObject)
+}
+
+class com.example.arcadeapp.MemoryMatchActivity {
+- GridLayout gameGrid
+- TextView scoreText
+- TextView timerText
+- Button exitButton
+- int score
+- int pairsFound
+- int TOTAL_PAIRS
+- List<Card> cards
+- Card firstCard
+- Card secondCard
+- boolean isProcessing
+- Handler handler
+- CountDownTimer timer
+- long timeRemaining
+- boolean isGameOver
+# void onCreate(Bundle)
++ void onBackPressed()
+- void initializeGame()
+- void handleCardClick(Button)
+- void flipCard(Button,Card)
+- void flipCardBack(Button,Card)
+- void checkForMatch()
+- int getCardColor(int)
+- void updateScore()
+- void startTimer()
+- void setupExitButton()
+- void showExitDialog()
+- void showWinDialog()
+- void showTimeUpDialog()
+- void finishGame()
+# void onDestroy()
+- void resetGame()
+}
+
+
+class com.example.arcadeapp.MemoryMatchActivity$Card {
+~ int value
+~ boolean isFlipped
+~ boolean isMatched
+}
+
+class com.example.arcadeapp.MainActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.arcadeapp.RedButtonActivity {
+- int score
+- TextView scoreText
+- Button redButton
+# void onCreate(Bundle)
+}
+
+
+class com.example.arcadeapp.Score {
+- String playerName
+- int score
++ String getPlayerName()
++ int getScore()
+}
+
+
+class com.example.arcadeapp.MainMenuActivity {
+- Button profileButton
+# void onCreate(Bundle)
++ {static} android.content.Intent createIntent(android.content.Context,String)
+}
+
+
+class com.example.arcadeapp.GameTourActivity {
+- int currentGameIndex
+- String[] gameNames
+- String[] gameDescriptions
+- Class<?>[] gameActivities
+# void onCreate(Bundle)
+- void updateGameInfo()
+- void setupNavigationButtons()
+}
+
+
+class com.example.arcadeapp.ServerUtils {
+- {static} String TAG
+- {static} JSONObject handleServerResponse(HttpURLConnection)
++ {static} void getUserScore(Context,ServerCallback<Integer>)
++ {static} void updateUserScore(Context,int,ServerCallback<Void>)
+- {static} String getJwtToken(Context)
++ {static} void showError(Context,Exception)
+}
+
+
+class com.example.arcadeapp.ServerUtils$ServerException {
+- int statusCode
+- String errorMessage
++ int getStatusCode()
++ String getErrorMessage()
+}
+
+
+class com.example.arcadeapp.ServerUtils$NetworkException {
+}
+class com.example.arcadeapp.ServerUtils$AuthenticationException {
+}
+interface com.example.arcadeapp.ServerUtils$ServerCallback {
+~ void onSuccess(T)
+~ void onError(Exception)
+}
+
+class com.example.arcadeapp.ExampleGameActivity {
+- Button playButton
+- int score
+# void onCreate(Bundle)
+}
+
+
+class com.example.arcadeapp.BubblePopActivity {
+- FrameLayout gameBoard
+- TextView scoreText
+- int score
+- boolean isGameRunning
+- Handler handler
+- Random random
+- Button exitButton
+- ArrayList<Bubble> bubbles
+- int baseSpeed
+- int spawnInterval
+- int gameTime
+- int difficultyLevel
+# void onCreate(Bundle)
+- void initializeGame()
+- void startDifficultyTimer()
+- void startBubbleSpawner()
+- void spawnBubble()
+- void moveBubble(Bubble)
+- void checkBubblePop(float,float)
+- int getRandomColor()
+- void gameOver()
+# void onPause()
+# void onResume()
+}
+
+
+class com.example.arcadeapp.BubblePopActivity$Bubble {
+~ View view
+~ int size
+~ int points
+~ float speedX
+~ float speedY
+~ boolean isSpecial
+}
+
+class com.example.arcadeapp.GamesHomeActivity {
+- GridLayout gamesGridLayout
+- ActivityResultLauncher<Intent> startForResult
+# void onCreate(Bundle)
+- void updateScore(int)
+}
+
+
+class com.example.arcadeapp.FlappyBirdActivity {
+- FrameLayout gameBoard
+- TextView scoreText
+- TextView highScoreText
+- int score
+- int highScore
+- boolean isGameRunning
+- boolean isGameStarted
+- Handler handler
+- Random random
+- Button exitButton
+- Button flapButton
+- Button startButton
+- View bird
+- ArrayList<View> pipes
+- int birdY
+- int birdVelocity
+- int gravity
+- int jumpForce
+- int pipeSpeed
+- int pipeGap
+- int pipeWidth
+- int spawnInterval
+- int difficultyLevel
+# void onCreate(Bundle)
+- void startGame()
+- void createBird()
+- void flap()
+- void startGameLoop()
+- void updateGame()
+- void updateBird()
+- void updatePipes()
+- void checkCollisions()
+- boolean isColliding(FrameLayout.LayoutParams,FrameLayout.LayoutParams)
+- void startPipeSpawner()
+- void spawnPipe()
+- void startDifficultyTimer()
+- void gameOver()
+# void onPause()
+# void onResume()
+- void showExitDialog()
+}
+
+
+class com.example.arcadeapp.RegisterActivity {
+- EditText usernameInput
+- Button registerButton
+# void onCreate(Bundle)
+}
+
+
+class com.example.arcadeapp.triviaActivity {
+- TextView questionTextView
+- Button optionA
+- ProgressBar progressBar
+- int currentQuestionIndex
+- List<Question> questionList
+- CountDownTimer countDownTimer
+- Button exitButton
+# void onCreate(Bundle)
+- List<Question> loadQuestions()
+- void showNextQuestion()
+- void checkAnswer(String)
+- void startTimer()
+}
+
+
+class com.example.arcadeapp.triviaActivity$Question {
+- String question
+- String optionA
++ String getQuestion()
++ String getOptionA()
++ String getOptionB()
++ String getOptionC()
++ String getOptionD()
++ String getCorrectAnswer()
+}
+
+
+class com.example.arcadeapp.PuzzleSlideActivity {
+- GridLayout puzzleGrid
+- TextView movesText
+- TextView timerText
+- TextView levelText
+- Button newGameButton
+- Button exitButton
+- Button easyButton
+- Button mediumButton
+- Button hardButton
+- Button backButton
+- ArrayList<Button> tiles
+- int emptyTileIndex
+- int moves
+- int seconds
+- boolean isGameRunning
+- Handler timerHandler
+- Random random
+- int difficultyLevel
+# void onCreate(Bundle)
+- void setDifficulty(int)
+- void startNewGame()
+- Button createTile(int)
+- void shuffleTiles()
+- ArrayList<Integer> getPossibleMoves()
+- void onTileClick(int)
+- void swapTiles(int,int)
+- boolean isPuzzleSolved()
+- void startTimer()
+- void gameWon()
+# void onPause()
+# void onResume()
+}
+
+
+class com.example.arcadeapp.FallingblocksActivity {
+- boolean dialogShown
+- FrameLayout gameBoard
+- TextView scoreText
+- int score
+- boolean isGameRunning
+- Handler handler
+- Random random
+- Button exitButton
+# void onCreate(Bundle)
+- void startGameLoop()
+- void final_dialog()
+- void stopGame()
+- void spawnBlock()
+- int getRandomColor()
+# void onPause()
+# void onResume()
+}
+
+
+interface com.example.arcadeapp.ServerCallback {
+~ void onSuccess(T)
+~ void onError(String)
+}
+
+class com.example.arcadeapp.ScoreboardItem {
+- String username
+- int score
++ String getUsername()
++ int getScore()
+}
+
+
+class com.example.arcadeapp.HangchairsActivity {
+- ImageView hangchairImage
+- TextView wordTextView
+- EditText guessInput
+- Button submitButton
+- Button exitButton
+- List<String> wordsToGuess
+- String wordToGuess
+- StringBuilder currentGuess
+- Set<Character> guessedLetters
+- int attemptsLeft
+- int score
+# void onCreate(Bundle)
+- void gameEnded()
+- void processGuess(String)
+- void winGame()
+- void loseGame()
+- int getImageResourceForAttemptsLeft()
+}
+
+
+class com.example.arcadeapp.ServerConfig {
++ {static} String BASE_URL
+}
+
+class com.example.arcadeapp.ScoreboardAdapter {
+- List<ScoreboardItem> scores
++ ScoreViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ScoreViewHolder,int)
++ int getItemCount()
+}
+
+
+class com.example.arcadeapp.ScoreboardAdapter$ScoreViewHolder {
+~ TextView rankText
+~ TextView playerNameText
+~ TextView scoreText
+}
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.TicTacToeActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.ProfileActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.SnakeActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.SpaceShooterActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.ScoreboardActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.LoginActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.ColorMatchActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.guessNumberActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.MemoryMatchActivity
+com.example.arcadeapp.MemoryMatchActivity +.. com.example.arcadeapp.MemoryMatchActivity$Card
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.RedButtonActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.MainMenuActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.GameTourActivity
+com.example.arcadeapp.ServerUtils +.. com.example.arcadeapp.ServerUtils$ServerException
+com.example.arcadeapp.Exception <|-- com.example.arcadeapp.ServerUtils$ServerException
+com.example.arcadeapp.ServerUtils +.. com.example.arcadeapp.ServerUtils$NetworkException
+com.example.arcadeapp.Exception <|-- com.example.arcadeapp.ServerUtils$NetworkException
+com.example.arcadeapp.ServerUtils +.. com.example.arcadeapp.ServerUtils$AuthenticationException
+com.example.arcadeapp.Exception <|-- com.example.arcadeapp.ServerUtils$AuthenticationException
+com.example.arcadeapp.ServerUtils +.. com.example.arcadeapp.ServerUtils$ServerCallback
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.ExampleGameActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.BubblePopActivity
+com.example.arcadeapp.BubblePopActivity +.. com.example.arcadeapp.BubblePopActivity$Bubble
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.GamesHomeActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.FlappyBirdActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.RegisterActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.triviaActivity
+com.example.arcadeapp.triviaActivity +.. com.example.arcadeapp.triviaActivity$Question
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.PuzzleSlideActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.FallingblocksActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.arcadeapp.HangchairsActivity
+com.example.arcadeapp.Adapter <|-- com.example.arcadeapp.ScoreboardAdapter
+com.example.arcadeapp.ScoreboardAdapter +.. com.example.arcadeapp.ScoreboardAdapter$ScoreViewHolder
+com.example.arcadeapp.ViewHolder <|-- com.example.arcadeapp.ScoreboardAdapter$ScoreViewHolder
+@enduml

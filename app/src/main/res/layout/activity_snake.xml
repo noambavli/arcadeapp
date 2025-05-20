@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ocean_blue">
+
+    <Button
+        android:id="@+id/backButton"
+        style="@style/BackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="← Back"
+        android:layout_margin="16dp" />
+
+    <TextView
+        android:id="@+id/scoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Score: 0"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
+    <FrameLayout
+        android:id="@+id/gameBoard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/controls_layout"
+        android:layout_below="@+id/scoreText"
+        android:layout_margin="16dp"
+        android:background="@color/black" />
+
+    <LinearLayout
+        android:id="@+id/controls_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/exit_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/up_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="↑"
+            android:textSize="24sp"
+            android:background="@color/vibrant_red"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/left_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="←"
+                android:textSize="24sp"
+                android:background="@color/vibrant_red"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/right_button"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="→"
+                android:textSize="24sp"
+                android:background="@color/vibrant_red"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/down_button"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:text="↓"
+            android:textSize="24sp"
+            android:background="@color/vibrant_red"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="Exit"
+        android:textColor="@color/white"
+        android:background="@color/vibrant_red" />
+
+</RelativeLayout> 

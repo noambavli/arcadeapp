@@ -138,7 +138,7 @@ public class HangchairsActivity extends AppCompatActivity {
         Intent resultIntent = new Intent();
         resultIntent.putExtra("score", new_score);
         setResult(RESULT_OK, resultIntent);
-
+        finish();
     }
 
 
